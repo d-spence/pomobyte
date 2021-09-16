@@ -14,10 +14,10 @@ const navExpand = {
   hovered: {
     letterSpacing: '5px',
     padding: '0 0.5rem',
-    backgroundColor: '#ec5b13',
+    backgroundColor: 'var(--orange)',
   },
   tapped: {
-    scale: 0.95,
+    scaleX: 0.9,
   }
 }
 
@@ -41,6 +41,7 @@ const Button = ({ label, onClick, type }) => {
           onClick={onClick}
           className="button"
           variants={navExpand}
+          initial="initial"
           whileHover="hovered"
           whileTap="tapped"
         >

@@ -1,0 +1,14 @@
+.logo {
+  color: var(--light);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 200px;
+  display: flex;
+  cursor: pointer;
+}
+
+.logo span {
+  color: var(--orange);
+}
