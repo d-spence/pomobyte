@@ -1,0 +1,13 @@
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  width: 100%;
+}
+
+.time {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+  font-size: 5rem;
+}

@@ -1,0 +1,9 @@
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 200px;
+  width: 600px;
+  border: 1px solid var(--light);
+  margin: 20px;
+}
