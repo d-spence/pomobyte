@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import Nav from './features/navigation/Nav';
-import Modal from './features/modal/Modal';
+import Modal from './features/Modal/index';
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -10,10 +9,15 @@ function App() {
   const open = () => setModalOpen(true);
 
   return (
-    <>
-      <div className="container">
-        <Nav handleOpenModal={open}/>
-      </div>
+    <div>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="save-button"
+        onClick={() => (modalOpen ? close() : open())}
+      >
+        Launch modal
+      </motion.button>
 
       <AnimatePresence
         initial={false}
@@ -21,7 +25,7 @@ function App() {
       >
         {modalOpen && <Modal modalOpen={modalOpen} handleClose={close} />}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
 
