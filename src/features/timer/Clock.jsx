@@ -24,18 +24,22 @@ const Clock = ({ config, timer, timerState }) => {
   const circleVariants = {
     initial: {
       scale: 0,
+      rotateY: 0,
       transition: {
         duration: 0.5
       }
     },
     animate: {
       scale: 1,
+      rotateY: 180,
       transition: {
-        duration: 0.5
+        duration: 0.5,
+        ease: 'linear',
       }
     },
     animatePaused: {
       scale: percentage,
+      rotateY: 0,
       transition: {
         duration: 0.5,
         ease: 'easeOut'
@@ -46,6 +50,14 @@ const Clock = ({ config, timer, timerState }) => {
       transition: {
         duration: 1,
         ease: 'easeOut'
+      }
+    },
+    animateFinished: {
+      scale: [0, 1],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        repeatType: 'reverse'
       }
     }
   }

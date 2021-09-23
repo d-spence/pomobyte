@@ -30,6 +30,15 @@ const pausedAnim = {
   }
 }
 
+// const finishedAnim = {
+//   initial: {
+//     opacity: 0
+//   },
+//   animate: {
+    
+//   }
+// }
+
 const timerAnim = {
   initial: {
     x: '150vw',
@@ -88,7 +97,12 @@ const Timer = ({ config, timer, timerState }) => {
         }
 
         {timerState === 'finished' &&
-          <motion.div className="time red">
+          <motion.div
+            className="time red"
+            variants={pausedAnim}
+            initial="initial"
+            animate="animate"
+          >
             {formattedTime}
           </motion.div>
         }

@@ -12,7 +12,7 @@ import Modal from './features/modal/Modal';
 dayjs.extend(duration);
 
 const initialConfig = {
-  time: 5,
+  time: 0.5,
   breakShort: 15,
   breakLong: 30,
 }
@@ -30,8 +30,12 @@ function App() {
   const openModal = () => setModalOpen(true);
 
   const updateTimer = () => {
-    let updatedTime = timer.subtract(1, 'seconds');
-    setTimer(updatedTime);
+    if (timer.get('seconds') <= 0) {
+      setTimerState('finished');
+    } else {
+      let updatedTime = timer.subtract(1, 'seconds');
+      setTimer(updatedTime);
+    }
   }
 
   useInterval(() => {

@@ -8,11 +8,12 @@
 .clock svg {
   position: absolute;
   fill: none;
+  overflow: visible;
 }
 
 .clock svg .svg-bg {
   stroke: var(--orange);
-  stroke-width: 4px;
+  stroke-width: 8px;
   opacity: 0.5;
 }
 
