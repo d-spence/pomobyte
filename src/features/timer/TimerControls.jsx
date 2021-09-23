@@ -6,10 +6,17 @@ import './TimerControls.css'
 
 dayjs.extend(duration);
 
-const TimerControls = ({ config, setConfig, setTimer, active, setActive }) => {
-  const startTimer = () => !active && setActive(true);
-  const stopTimer = () => active && setActive(false);
-  const resetTimer = () => setTimer(dayjs.duration(config.time, 'minutes'));
+const TimerControls = ({ config, setConfig, setTimer, timerState, setTimerState }) => {
+  const startTimer = () => {
+    !(timerState === 'active') && setTimerState('active');
+  }
+  const stopTimer = () => {
+    (timerState === 'active') && setTimerState('paused');
+  }
+  const resetTimer = () => {
+    setTimer(dayjs.duration(config.time, 'minutes'));
+    (timerState === 'active') ? setTimerState('active') : setTimerState('initial');
+  }
 
   return (
     <div className="controls">

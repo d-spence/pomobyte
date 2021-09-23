@@ -22,19 +22,20 @@ const initialTimer = dayjs.duration(initialConfig.time, 'minutes');
 function App() {
   const [config, setConfig] = useState(initialConfig);
   const [timer, setTimer] = useState(initialTimer);
-  const [active, setActive] = useState(false);
+  const [timerState, setTimerState] = useState('initial'); // initial, active, paused, finished
+  // const [active, setActive] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  
+  const closeModal = () => setModalOpen(false);
+  const openModal = () => setModalOpen(true);
 
   const updateTimer = () => {
     let updatedTime = timer.subtract(1, 'seconds');
     setTimer(updatedTime);
   }
 
-  const closeModal = () => setModalOpen(false);
-  const openModal = () => setModalOpen(true);
-
   useInterval(() => {
-    if (active) updateTimer();
+    if (timerState === 'active') updateTimer();
   }, 1000);
 
   useEffect(() => {
@@ -44,14 +45,18 @@ function App() {
   return (
     <>
       <div className="container flex">
-        <Nav handleOpenModal={openModal}/>
-        <Timer timer={timer} active={active} />
+        <Nav openModal={openModal} />
+        <Timer
+          config={config}
+          timer={timer}
+          timerState={timerState}
+        />
         <TimerControls 
           config={config}
           setConfig={setConfig}
           setTimer={setTimer}
-          active={active}
-          setActive={setActive}
+          timerState={timerState}
+          setTimerState={setTimerState}
         />
       </div>
 

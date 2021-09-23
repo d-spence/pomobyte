@@ -4,6 +4,7 @@ import './Button.css';
 const expand = {
   hovered: {
     scale: 1.05,
+    backgroundColor: '#ec5b13',
   },
   tapped: {
     scale: 0.95,
@@ -14,7 +15,7 @@ const navExpand = {
   hovered: {
     letterSpacing: '5px',
     padding: '0 0.5rem',
-    backgroundColor: 'var(--orange)',
+    backgroundColor: '#ec5b13',
   },
   tapped: {
     scaleX: 0.9,

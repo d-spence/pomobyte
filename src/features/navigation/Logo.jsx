@@ -17,7 +17,7 @@ const Logo = () => {
       <motion.span
         animate={{
           color: ['#ec5b13', '#141b1f'],
-          backgroundColor: 'var(--light)',
+          backgroundColor: '#e6e6e6',
           marginLeft: '0.25rem',
           padding: '0 0.25rem',
           letterSpacing: '1.5px',

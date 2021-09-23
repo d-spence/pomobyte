@@ -1,0 +1,21 @@
+.clock {
+  position: absolute;
+  height: 380px;
+  width: 380px;
+  z-index: -1;
+}
+
+.clock svg {
+  position: absolute;
+  fill: none;
+}
+
+.clock svg .svg-bg {
+  stroke: var(--orange);
+  stroke-width: 4px;
+  opacity: 0.5;
+}
+
+.clock svg .svg-fg {
+  fill: var(--orange);
+}

@@ -3,6 +3,7 @@
   justify-content: space-between;
   border-bottom: 1px solid var(--light);
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .nav .container > * {
