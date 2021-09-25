@@ -1,5 +1,5 @@
 .controls {
-  font-family: 'Share Tech Mono', monospace;
+  /* font-family: 'Share Tech Mono', monospace; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,11 +19,14 @@
 
 .controls .buttons {
   position: absolute;
-  top: -10px;
+  top: -15px;
 }
 
 .controls .buttons button {
+  border: 1px solid var(--light);
+  border-radius: 5px;
   margin: 0 20px;
+  padding: 5px 10px;
 }
 
 .controls .config input {
@@ -35,5 +38,5 @@
 }
 
 .controls .config label {
-
+  font-size: 0.9rem;
 }

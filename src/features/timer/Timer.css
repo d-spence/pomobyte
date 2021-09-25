@@ -7,8 +7,23 @@
   width: 100%;
 }
 
-.time {
-  font-family: 'Share Tech Mono', monospace;
+.timer .timer-state {
+  background: var(--orange);
+  color: var(--dark);
+  position: absolute;
+  top: 20%;
+  border-radius: 5px;
+  width: 160px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: default;
+}
+
+.timer .time {
   font-weight: bold;
   font-size: 5rem;
 }

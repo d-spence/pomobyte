@@ -2,9 +2,15 @@ import { motion } from 'framer-motion';
 import './Button.css';
 
 const expand = {
+  initial: {
+    scale: 1,
+    background: 'var(--dark)',
+    color: 'var(--light)',
+  },
   hovered: {
     scale: 1.05,
-    backgroundColor: '#ec5b13',
+    background: 'var(--green)',
+    color: 'var(--dark)',
   },
   tapped: {
     scale: 0.95,
@@ -12,13 +18,14 @@ const expand = {
 }
 
 const navExpand = {
-  hovered: {
-    letterSpacing: '5px',
-    padding: '0 0.5rem',
-    backgroundColor: '#ec5b13',
+  initial: {
+    background: 'var(--dark)',
+    color: 'var(--light)',
   },
-  tapped: {
-    scaleX: 0.9,
+  hovered: {
+    background: 'var(--green)',
+    color: 'var(--dark)',
+    letterSpacing: '5px',
   }
 }
 
@@ -30,6 +37,7 @@ const Button = ({ label, onClick, type }) => {
           onClick={onClick}
           className="button"
           variants={expand}
+          initial="initial"
           whileHover="hovered"
           whileTap="tapped"
         >
@@ -44,7 +52,6 @@ const Button = ({ label, onClick, type }) => {
           variants={navExpand}
           initial="initial"
           whileHover="hovered"
-          whileTap="tapped"
         >
           {label}
         </motion.button>

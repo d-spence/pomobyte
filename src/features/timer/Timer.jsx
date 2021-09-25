@@ -50,6 +50,21 @@ const timerAnim = {
   }
 }
 
+const timerStateAnim = {
+  initial: {
+    x: '-150vw',
+  },
+  animate: {
+    x: 0,
+    scaleX: 1,
+    transition: {
+      delay: 0.4,
+      duration: 1,
+      type: 'spring'
+    }
+  }
+}
+
 const Timer = ({ config, timer, timerState }) => {
   const formattedTime = timer.format('HH:mm:ss');
 
@@ -61,6 +76,18 @@ const Timer = ({ config, timer, timerState }) => {
       animate="animate"
       exit="exit"
     >
+      <motion.div
+        className="timer-state"
+        variants={timerStateAnim}
+        initial="initial"
+        animate="animate"
+      >
+        {timerState === 'initial' && 'Pomobyte'}
+        {timerState === 'active' && 'Running'}
+        {timerState === 'paused' && 'Paused'}
+        {timerState === 'finished' && 'Done'}
+      </motion.div>
+
       <AnimatePresence
         initial={true}
         exitBeforeEnter={true}

@@ -9,15 +9,18 @@
   position: absolute;
   fill: none;
   overflow: visible;
+  opacity: 0.7;
 }
 
 .clock svg .svg-bg {
   /* fill: var(--light); */
   stroke: var(--light);
   stroke-width: 4px;
-  opacity: 0.7;
+  
 }
 
 .clock svg .svg-fg {
   fill: var(--clock);
+  stroke: var(--light);
+  stroke-width: 2px;
 }

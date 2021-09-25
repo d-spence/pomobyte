@@ -19,7 +19,7 @@ const Clock = ({ config, timer, timerState }) => {
   const timeTotalMs = config.pomoTime * 60 * 1000;
   const timeLeftMs = timer.$ms;
   const percentage = Math.round((timeLeftMs / timeTotalMs) * 100) / 100;
-  console.log(percentage);
+  // console.log(percentage);
 
   const circleVariants = {
     initial: {
