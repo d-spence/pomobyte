@@ -12,11 +12,12 @@
 }
 
 .clock svg .svg-bg {
-  stroke: var(--orange);
-  stroke-width: 8px;
-  opacity: 0.5;
+  /* fill: var(--light); */
+  stroke: var(--light);
+  stroke-width: 4px;
+  opacity: 0.7;
 }
 
 .clock svg .svg-fg {
-  fill: var(--orange);
+  fill: var(--clock);
 }

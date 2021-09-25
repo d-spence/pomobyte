@@ -30,15 +30,6 @@ const pausedAnim = {
   }
 }
 
-// const finishedAnim = {
-//   initial: {
-//     opacity: 0
-//   },
-//   animate: {
-    
-//   }
-// }
-
 const timerAnim = {
   initial: {
     x: '150vw',

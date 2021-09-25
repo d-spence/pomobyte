@@ -16,9 +16,9 @@ const svgVariants = {
 }
 
 const Clock = ({ config, timer, timerState }) => {
-  const timeTotalMs = config.time * 60 * 1000;
+  const timeTotalMs = config.pomoTime * 60 * 1000;
   const timeLeftMs = timer.$ms;
-  const percentage = timeLeftMs / timeTotalMs;
+  const percentage = Math.round((timeLeftMs / timeTotalMs) * 100) / 100;
   console.log(percentage);
 
   const circleVariants = {
@@ -38,7 +38,7 @@ const Clock = ({ config, timer, timerState }) => {
       }
     },
     animatePaused: {
-      scale: percentage,
+      scale: (percentage > 1) ? 1 : percentage,
       rotateY: 0,
       transition: {
         duration: 0.5,
@@ -46,7 +46,7 @@ const Clock = ({ config, timer, timerState }) => {
       }
     },
     animateActive: {
-      scale: percentage,
+      scale: (percentage > 1) ? 1 : percentage,
       transition: {
         duration: 1,
         ease: 'easeOut'

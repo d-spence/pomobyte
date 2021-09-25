@@ -1,9 +1,39 @@
 .controls {
+  font-family: 'Share Tech Mono', monospace;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  position: relative;
   height: 200px;
   width: 600px;
   border: 1px solid var(--light);
   margin: 20px;
+}
+
+.controls .buttons,
+.controls .config {
+  flex: 1;
+  width: 100%;
+}
+
+.controls .buttons {
+  position: absolute;
+  top: -10px;
+}
+
+.controls .buttons button {
+  margin: 0 20px;
+}
+
+.controls .config input {
+  font-size: 25px;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  margin: 5px 40px;
+}
+
+.controls .config label {
+
 }

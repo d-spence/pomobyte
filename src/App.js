@@ -12,12 +12,12 @@ import Modal from './features/modal/Modal';
 dayjs.extend(duration);
 
 const initialConfig = {
-  time: 0.5,
-  breakShort: 15,
-  breakLong: 30,
+  pomoTime: 25,
+  shortBreak: 5,
+  longBreak: 15,
 }
 
-const initialTimer = dayjs.duration(initialConfig.time, 'minutes');
+const initialTimer = dayjs.duration(initialConfig.pomoTime, 'minutes');
 
 function App() {
   const [config, setConfig] = useState(initialConfig);
@@ -30,7 +30,8 @@ function App() {
   const openModal = () => setModalOpen(true);
 
   const updateTimer = () => {
-    if (timer.get('seconds') <= 0) {
+    if (timer.asSeconds() <= 0) {
+      console.log('timer finished')
       setTimerState('finished');
     } else {
       let updatedTime = timer.subtract(1, 'seconds');
@@ -43,12 +44,12 @@ function App() {
   }, 1000);
 
   useEffect(() => {
-    // startTimer();
+    // console.log(timer, timer.asSeconds());
   }, []);
 
   return (
     <>
-      <div className="container flex">
+      <div className="container flex col">
         <Nav openModal={openModal} />
         <Timer
           config={config}

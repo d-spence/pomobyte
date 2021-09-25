@@ -2,13 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Share+Tech+Mono&display=swap');
 
 :root {
+  --light: hsl(200, 20%, 85%);
   --dark: hsl(200, 20%, 10%);
-  --light: hsl(0, 0%, 90%);
   --red: hsl(10, 85%, 50%);
   --green: hsl(90, 85%, 50%);
   --yellow: hsl(50, 85%, 50%);
   --orange: hsl(20, 85%, 50%); /* #ec5b13 */
-  --gradient: linear-gradient(10deg, #ffaa00, #ff6a00);
+  --clock: hsl(200, 40%, 30%);
+
+  /* --gradient: linear-gradient(10deg, #ffaa00, #ff6a00); */
   /* --gradient2: linear-gradient(15deg, #04ea00, #00d17d); */
   /* --gradient3: linear-gradient(15deg, #b648ff, #ef5dff); */
 }
@@ -37,8 +39,12 @@ body {
 
 .flex {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+.col {
+  flex-direction: column;
 }
 
 .red {
