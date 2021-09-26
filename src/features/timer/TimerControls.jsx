@@ -1,29 +1,42 @@
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-
 import Button from '../button/Button';
 import './TimerControls.css'
 
 dayjs.extend(duration);
 
-const TimerControls = ({ config, setConfig, setTimer, timerState, setTimerState }) => {
+const TimerControls = ({
+  config,
+  setConfig,
+  setTimer,
+  timerState,
+  setTimerState,
+  setTimerFromPhase,
+}) => {
   const [pomoTime, setPomoTime] = useState(config.pomoTime);
   const [shortBreak, setShortBreak] = useState(config.shortBreak);
   const [longBreak, setLongBreak] = useState(config.longBreak);
 
   const startTimer = () => {
+    if (timerState === 'finished') {
+      setTimerFromPhase();
+    }
+
     !(timerState === 'active') && setTimerState('active');
   }
+
   const stopTimer = () => {
     (timerState === 'active') && setTimerState('paused');
   }
+
   const resetTimer = () => {
-    setTimer(dayjs.duration(config.pomoTime, 'minutes'));
+    setTimerFromPhase();
+
     (timerState === 'active') ? setTimerState('active') : setTimerState('initial');
   }
 
-  const handleChange = (func, value, min=1, max=999) => {
+  const handleConfigChange = (func, value, min=0, max=999) => {
     if (!isNaN(value)) {
       if (value < min) {
         func(min);
@@ -56,7 +69,7 @@ const TimerControls = ({ config, setConfig, setTimer, timerState, setTimerState 
           <label>Pomodoro</label>
           <input
             value={pomoTime}
-            onChange={(e) => handleChange(setPomoTime, e.target.value)}
+            onChange={(e) => handleConfigChange(setPomoTime, e.target.value)}
             onClick={(e) => e.target.select()}
           />
         </div>
@@ -65,7 +78,7 @@ const TimerControls = ({ config, setConfig, setTimer, timerState, setTimerState 
           <label>Short Break</label>
           <input
             value={shortBreak}
-            onChange={(e) => handleChange(setShortBreak, e.target.value)}
+            onChange={(e) => handleConfigChange(setShortBreak, e.target.value)}
             onClick={(e) => e.target.select()}
           />
         </div>
@@ -74,7 +87,7 @@ const TimerControls = ({ config, setConfig, setTimer, timerState, setTimerState 
           <label>Long Break</label>
           <input
             value={longBreak}
-            onChange={(e) => handleChange(setLongBreak, e.target.value)}
+            onChange={(e) => handleConfigChange(setLongBreak, e.target.value)}
             onClick={(e) => e.target.select()}
           />
         </div>
