@@ -12,9 +12,9 @@ import Modal from './features/modal/Modal';
 dayjs.extend(duration);
 
 const initialConfig = {
-  pomoTime: 0.2,
+  pomoTime: 0.1,
   shortBreak: 0.1,
-  longBreak: 0.3,
+  longBreak: 0.1,
   breakInterval: 2,
 }
 

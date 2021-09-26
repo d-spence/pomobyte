@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import Button from '../button/Button';
+import StartButton from '../button/StartButton';
 import './TimerControls.css'
 
 dayjs.extend(duration);
@@ -58,9 +59,11 @@ const TimerControls = ({
 
   return (
     <div className="controls">
-      <div className="buttons flex">
-        <Button label="Start" onClick={startTimer} />
-        <Button label="Stop" onClick={stopTimer} />
+      <StartButton startTimer={startTimer} stopTimer={stopTimer} timerState={timerState} />
+
+      <div className="buttons">
+        {/* <Button label="Start" onClick={startTimer} /> */}
+        {/* <Button label="Stop" onClick={stopTimer} /> */}
         <Button label="Reset" onClick={resetTimer} />
       </div>
 
