@@ -108,6 +108,7 @@ function App() {
         <TimerControls
           config={config}
           setConfig={setConfig}
+          timer={timer}
           setTimer={setTimer}
           timerState={timerState}
           setTimerState={setTimerState}

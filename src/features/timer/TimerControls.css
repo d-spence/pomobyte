@@ -23,8 +23,9 @@
 .controls .buttons button {
   border: 1px solid var(--light);
   border-radius: 5px;
-  margin: 0 20px;
+  margin: 0 5px;
   padding: 5px 10px;
+  font-size: 1rem;
 }
 
 .controls .config input {

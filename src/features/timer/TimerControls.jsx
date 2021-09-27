@@ -10,6 +10,7 @@ dayjs.extend(duration);
 const TimerControls = ({
   config,
   setConfig,
+  timer,
   setTimer,
   timerState,
   setTimerState,
@@ -37,6 +38,10 @@ const TimerControls = ({
     (timerState === 'active') ? setTimerState('active') : setTimerState('initial');
   }
 
+  const addTimerMinutes = (minutes=1) => {
+    setTimer(timer.add(minutes, 'minutes'));
+  }
+
   const handleConfigChange = (func, value, min=0, max=999) => {
     if (!isNaN(value)) {
       if (value < min) {
@@ -62,6 +67,7 @@ const TimerControls = ({
       <StartButton startTimer={startTimer} stopTimer={stopTimer} timerState={timerState} />
 
       <div className="buttons">
+        <Button label="+1 Minute" onClick={() => addTimerMinutes(1)} />
         <Button label="Reset" onClick={resetTimer} />
       </div>
 
