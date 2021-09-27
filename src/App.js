@@ -65,15 +65,15 @@ function App() {
   }
 
   const setTimerFromPhase = () => {
-    let resetTime = config.pomoTime;
-
-    if (phase === 2) {
-      resetTime = config.shortBreak;
-    } else if (phase === 3) {
-      resetTime = config.longBreak;
+    let newTime;
+    switch (phase) {
+      case 1: newTime = config.pomoTime; break;
+      case 2: newTime = config.shortBreak; break;
+      case 3: newTime = config.longBreak; break;
+      default: newTime = config.pomoTime;
     }
 
-    setTimer(dayjs.duration(resetTime, 'minutes'));
+    setTimer(dayjs.duration(newTime, 'minutes'));
   }
 
   useInterval(() => {
@@ -93,6 +93,7 @@ function App() {
           config={config}
           timer={timer}
           timerState={timerState}
+          phase={phase}
         />
         <TimerControls
           config={config}

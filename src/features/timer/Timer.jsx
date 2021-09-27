@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -65,8 +66,12 @@ const timerStateAnim = {
   }
 }
 
-const Timer = ({ config, timer, timerState }) => {
-  const formattedTime = timer.format('HH:mm:ss');
+const Timer = ({ config, timer, timerState, phase }) => {
+  let formattedTime = timer.format('HH:mm:ss');
+
+  useEffect(() => {
+    formattedTime = timer.format('HH:mm:ss');
+  }, [config]);
 
   return (
     <motion.div
@@ -132,7 +137,7 @@ const Timer = ({ config, timer, timerState }) => {
         }
       </AnimatePresence>
       
-      <Clock config={config} timer={timer} timerState={timerState} />
+      <Clock config={config} timer={timer} timerState={timerState} phase={phase} />
     </motion.div>
   );
 }

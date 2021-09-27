@@ -51,19 +51,19 @@ const TimerControls = ({
 
   useEffect(() => {
     setConfig({ ...config, pomoTime, shortBreak, longBreak });
-
-    if (timerState === 'initial') {
-      setTimer(dayjs.duration(pomoTime, 'minutes'))
-    }
   }, [pomoTime, shortBreak, longBreak]);
+
+  useEffect(() => {
+    if (timerState === 'initial') {
+      setTimerFromPhase();
+    }
+  }, [config]);
 
   return (
     <div className="controls">
       <StartButton startTimer={startTimer} stopTimer={stopTimer} timerState={timerState} />
 
       <div className="buttons">
-        {/* <Button label="Start" onClick={startTimer} /> */}
-        {/* <Button label="Stop" onClick={stopTimer} /> */}
         <Button label="Reset" onClick={resetTimer} />
       </div>
 

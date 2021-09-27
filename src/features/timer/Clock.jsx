@@ -15,8 +15,21 @@ const svgVariants = {
   }
 }
 
-const Clock = ({ config, timer, timerState }) => {
-  const timeTotalMs = config.pomoTime * 60 * 1000;
+// TODO: Move Clock component up to App
+const Clock = ({ config, timer, timerState, phase }) => {
+  const getTotalTime = () => {
+    let totalTime;
+    switch (phase) {
+      case 1: totalTime = config.pomoTime; break;
+      case 2: totalTime = config.shortBreak; break;
+      case 3: totalTime = config.longBreak; break;
+      default: totalTime = config.pomoTime;
+    }
+
+    return totalTime;
+  }
+
+  const timeTotalMs = getTotalTime() * 60 * 1000;
   const timeLeftMs = timer.$ms;
   const percentage = Math.round((timeLeftMs / timeTotalMs) * 100) / 100;
   // console.log(percentage);
