@@ -50,14 +50,12 @@ const TimerControls = ({
   }
 
   useEffect(() => {
-    setConfig({ ...config, pomoTime, shortBreak, longBreak });
+    const newConfig = { ...config, pomoTime, shortBreak, longBreak };
+    setConfig(newConfig);
+    
+    localStorage.setItem('config', JSON.stringify(newConfig));
+    console.log('saving config to local storage');
   }, [pomoTime, shortBreak, longBreak]);
-
-  useEffect(() => {
-    if (timerState === 'initial') {
-      setTimerFromPhase();
-    }
-  }, [config]);
 
   return (
     <div className="controls">

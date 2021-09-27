@@ -11,18 +11,22 @@ import Modal from './features/modal/Modal';
 
 dayjs.extend(duration);
 
-const initialConfig = {
-  pomoTime: 0.1,
-  shortBreak: 0.1,
-  longBreak: 0.1,
-  breakInterval: 2,
+let defaultConfig;
+if (localStorage.getItem('config')) {
+  defaultConfig = JSON.parse(localStorage.getItem('config'));
+  console.log('loading config from local storage');
+} else {
+  defaultConfig = {
+    pomoTime: 0.1,
+    shortBreak: 0.1,
+    longBreak: 0.1,
+    breakInterval: 2,
+  }
 }
 
-const initialTimer = dayjs.duration(initialConfig.pomoTime, 'minutes');
-
 function App() {
-  const [config, setConfig] = useState(initialConfig);
-  const [timer, setTimer] = useState(initialTimer);
+  const [config, setConfig] = useState(defaultConfig);
+  const [timer, setTimer] = useState(dayjs.duration(defaultConfig.pomoTime, 'minutes'));
   const [timerState, setTimerState] = useState('initial'); // initial, active, paused, finished
   const [phase, setPhase] = useState(1); // pomodoro=1, shortBreak=2, longBreak=3
   const [currentInterval, setCurrentInterval] = useState(1);
@@ -83,6 +87,12 @@ function App() {
   useEffect(() => {
     handlePhaseTransition();
   }, [timerState]);
+
+  useEffect(() => {
+    if (timerState === 'initial') {
+      setTimerFromPhase();
+    }
+  }, [config]);
 
   return (
     <>
