@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { motion } from 'framer-motion';
+import { AppContext } from '../../contexts/AppContext';
 import './Clock.css';
 
 const svgVariants = {
@@ -16,7 +18,9 @@ const svgVariants = {
 }
 
 // TODO: Move Clock component up to App
-const Clock = ({ config, timer, timerState, phase }) => {
+const Clock = ({ timer, timerState, phase }) => {
+  const { config } = useContext(AppContext);
+
   const getTotalTime = () => {
     let totalTime;
     switch (phase) {

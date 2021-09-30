@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import { AppContext } from '../../contexts/AppContext';
 import Clock from './Clock';
 import './Timer.css';
 
@@ -66,7 +67,8 @@ const timerStateAnim = {
   }
 }
 
-const Timer = ({ config, timer, timerState, phase }) => {
+const Timer = ({ timer, timerState, phase }) => {
+  const { config } = useContext(AppContext);
   let formattedTime = timer.format('HH:mm:ss');
 
   useEffect(() => {
@@ -137,7 +139,7 @@ const Timer = ({ config, timer, timerState, phase }) => {
         }
       </AnimatePresence>
       
-      <Clock config={config} timer={timer} timerState={timerState} phase={phase} />
+      <Clock timer={timer} timerState={timerState} phase={phase} />
     </motion.div>
   );
 }

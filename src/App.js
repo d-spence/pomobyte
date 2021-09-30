@@ -1,39 +1,39 @@
+import { useState, useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import useInterval from './hooks/useInterval';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import useInterval from './hooks/useInterval';
+import { AppContext } from './contexts/AppContext';
 
 import Nav from './features/navigation/Nav';
 import Timer from './features/timer/Timer';
 import TimerControls from './features/timer/TimerControls';
 import Modal from './features/modal/Modal';
 
+import { defaultConfig } from './config/defaults';
+
 dayjs.extend(duration);
 
-let defaultConfig;
-if (localStorage.getItem('config')) {
-  defaultConfig = JSON.parse(localStorage.getItem('config'));
-  console.log('loading config from local storage');
-} else {
-  defaultConfig = {
-    pomoTime: 0.1,
-    shortBreak: 0.1,
-    longBreak: 0.1,
-    breakInterval: 2,
-  }
-}
+// let defaultConfig;
+// if (localStorage.getItem('config')) {
+//   defaultConfig = JSON.parse(localStorage.getItem('config'));
+//   console.log('loading config from local storage');
+// } else {
+//   defaultConfig = {
+//     pomoTime: 0.1,
+//     shortBreak: 0.1,
+//     longBreak: 0.1,
+//     breakInterval: 2,
+//   }
+// }
 
 function App() {
-  const [config, setConfig] = useState(defaultConfig);
+  // const [config, setConfig] = useState(defaultConfig);
   const [timer, setTimer] = useState(dayjs.duration(defaultConfig.pomoTime, 'minutes'));
   const [timerState, setTimerState] = useState('initial'); // initial, active, paused, finished
   const [phase, setPhase] = useState(1); // pomodoro=1, shortBreak=2, longBreak=3
   const [currentInterval, setCurrentInterval] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
-  
-  const closeModal = () => setModalOpen(false);
-  const openModal = () => setModalOpen(true);
+  const { config, modal } = useContext(AppContext);
 
   const updateTimer = () => {
     if (timer.asSeconds() <= 0) {
@@ -97,17 +97,17 @@ function App() {
   return (
     <>
       <div className="container flex col">
-        <Nav openModal={openModal} />
+        <Nav />
         <div>Timer State: {timerState} - Phase: {phase} - Current Interval: {currentInterval}/{config.breakInterval}</div>
         <Timer
-          config={config}
+          // config={config}
           timer={timer}
           timerState={timerState}
           phase={phase}
         />
         <TimerControls
-          config={config}
-          setConfig={setConfig}
+          // config={config}
+          // setConfig={setConfig}
           timer={timer}
           setTimer={setTimer}
           timerState={timerState}
@@ -120,7 +120,7 @@ function App() {
         initial={false}
         exitBeforeEnter={true}
       >
-        {modalOpen && <Modal modalOpen={modalOpen} handleClose={closeModal} />}
+        {modal.isOpen && <Modal />}
       </AnimatePresence>
     </>
   );

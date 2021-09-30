@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { motion } from 'framer-motion';
+import { AppContext } from '../../contexts/AppContext';
 import Backdrop from './Backdrop';
 import Button from '../button/Button';
 import './Modal.css';
@@ -23,9 +25,11 @@ const dropIn = {
   },
 }
 
-const Modal = ({ handleClose, text }) => {
+const Modal = () => {
+  const { modalDispatch } = useContext(AppContext);
+
   return (
-    <Backdrop onClick={handleClose}>
+    <Backdrop>
       <motion.div
         className="modal"
         onClick={(e) => e.stopPropagation()}
@@ -34,8 +38,8 @@ const Modal = ({ handleClose, text }) => {
         animate="visible"
         exit="exit"
       >
-        <p>{text}</p>
-        <Button label="Close" onClick={handleClose} />
+        {/* <p>{text}</p> */}
+        <Button label="Close" onClick={() => modalDispatch({type: 'MODAL_CLOSE'})} />
       </motion.div>
     </Backdrop>
   );

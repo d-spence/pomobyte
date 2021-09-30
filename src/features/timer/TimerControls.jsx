@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import { AppContext } from '../../contexts/AppContext';
+
 import Button from '../button/Button';
 import StartButton from '../button/StartButton';
 import './TimerControls.css'
@@ -8,14 +10,15 @@ import './TimerControls.css'
 dayjs.extend(duration);
 
 const TimerControls = ({
-  config,
-  setConfig,
+  // config,
+  // setConfig,
   timer,
   setTimer,
   timerState,
   setTimerState,
   setTimerFromPhase,
 }) => {
+  const { config, configDispatch } = useContext(AppContext);
   const [pomoTime, setPomoTime] = useState(config.pomoTime);
   const [shortBreak, setShortBreak] = useState(config.shortBreak);
   const [longBreak, setLongBreak] = useState(config.longBreak);
@@ -55,11 +58,11 @@ const TimerControls = ({
   }
 
   useEffect(() => {
-    const newConfig = { ...config, pomoTime, shortBreak, longBreak };
-    setConfig(newConfig);
+    const newConfig = { pomoTime, shortBreak, longBreak };
+    configDispatch({type: 'UPDATE_CONFIG', payload: newConfig});
     
-    localStorage.setItem('config', JSON.stringify(newConfig));
-    console.log('saving config to local storage');
+    // localStorage.setItem('config', JSON.stringify(newConfig));
+    // console.log('saving config to local storage');
   }, [pomoTime, shortBreak, longBreak]);
 
   return (
