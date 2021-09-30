@@ -50,14 +50,14 @@ const StartButton = () => {
   
   const startTimer = () => {
     if (status.status === 'finished') {
-      statusDispatch({type: 'SET_STATUS', status: 'initial'});
+      statusDispatch({type: 'SET_STATUS', payload: 'initial'});
     } else {
-      statusDispatch({type: 'SET_STATUS', status: 'active'});
+      statusDispatch({type: 'SET_STATUS', payload: 'active'});
     }
   }
 
   const stopTimer = () => {
-    statusDispatch({type: 'SET_STATUS', status: 'paused'});
+    statusDispatch({type: 'SET_STATUS', payload: 'paused'});
   }
 
   return (

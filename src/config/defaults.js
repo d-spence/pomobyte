@@ -6,7 +6,7 @@ dayjs.extend(duration);
 export const defaultConfig = {
   pomoTime: 0.1, // minutes
   shortBreak: 0.05,
-  longBreak: 0.75,
+  longBreak: 0.07,
   breakInterval: 2,
 }
 

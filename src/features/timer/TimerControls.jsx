@@ -21,9 +21,9 @@ const TimerControls = ({ setTimerFromPhase }) => {
     setTimerFromPhase();
 
     if (status.status === 'active') {
-      statusDispatch({type: 'SET_STATUS', status: 'active'});
+      statusDispatch({type: 'SET_STATUS', payload: 'active'});
     } else {
-      statusDispatch({type: 'SET_STATUS', status: 'initial'});
+      statusDispatch({type: 'SET_STATUS', payload: 'initial'});
     }
   }
 
@@ -49,7 +49,7 @@ const TimerControls = ({ setTimerFromPhase }) => {
       <StartButton />
 
       <div className="buttons">
-        <Button label="+1 Minute" onClick={() => timerDispatch({type: 'ADD_MINUTES', minutes: 1})} />
+        <Button label="+1 Minute" onClick={() => timerDispatch({type: 'ADD_MINUTES', payload: 1})} />
         <Button label="Reset" onClick={resetTimer} />
       </div>
 

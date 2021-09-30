@@ -20,7 +20,7 @@ function App() {
 
   const updateTimer = () => {
     if (timer.asSeconds() <= 0) {
-      statusDispatch({type: 'SET_STATUS', status: 'finished'});
+      statusDispatch({type: 'SET_STATUS', payload: 'finished'});
       // handlePhaseTransition();
       // setTimerFromPhase();
     } else {
@@ -31,16 +31,16 @@ function App() {
   const handlePhaseTransition = () => {
     if (status.phase === 1) {
       if (status.interval + 1 > config.breakInterval) {
-        statusDispatch({type: 'SET_PHASE', phase: 3});
+        statusDispatch({type: 'SET_PHASE', payload: 3});
       } else {
-        statusDispatch({type: 'SET_PHASE', phase: 2});
+        statusDispatch({type: 'SET_PHASE', payload: 2});
       }
     } else if (status.phase === 2) {
-      statusDispatch({type: 'SET_PHASE', phase: 1});
-      statusDispatch({type: 'SET_INTERVAL', interval: status.interval + 1});
+      statusDispatch({type: 'SET_PHASE', payload: 1});
+      statusDispatch({type: 'SET_INTERVAL', payload: status.interval + 1});
     } else if (status.phase === 3) {
-      statusDispatch({type: 'SET_PHASE', phase: 1});
-      statusDispatch({type: 'SET_INTERVAL', interval: 1});
+      statusDispatch({type: 'SET_PHASE', payload: 1});
+      statusDispatch({type: 'SET_INTERVAL', payload: 1});
     }
   }
 
@@ -53,7 +53,7 @@ function App() {
       default: newTime = config.pomoTime;
     }
 
-    timerDispatch({type: 'SET_TIMER', timer: dayjs.duration(newTime, 'minutes')});
+    timerDispatch({type: 'SET_TIMER', payload: dayjs.duration(newTime, 'minutes')});
   }
 
   useInterval(() => {
@@ -64,19 +64,28 @@ function App() {
     if (status.status === 'initial') {
       setTimerFromPhase();
 
-      clearTimeout(status.phaseTimeoutID);
-      statusDispatch({type: 'CLEAR_PHASE_TIMEOUT_ID'});
+      if (status.phaseTimeoutID) {
+        clearTimeout(status.phaseTimeoutID);
+        statusDispatch({type: 'CLEAR_PHASE_TIMEOUT_ID'});
+      }
     } else if (status.status === 'finished') {
       handlePhaseTransition();
       
       // Remember timeout id in state and cancel if status changes to initial
       const timeoutID = setTimeout(() => {
-        statusDispatch({type: 'SET_STATUS', status: 'initial'});
+        statusDispatch({type: 'SET_STATUS', payload: 'initial'});
       }, PHASE_TRANSITION_DELAY);
 
-      statusDispatch({type: 'SET_PHASE_TIMEOUT_ID', id: timeoutID});
+      statusDispatch({type: 'SET_PHASE_TIMEOUT_ID', payload: timeoutID});
     }
   }, [status.status, config]);
+
+  // useEffect(() => {
+  //   // Updates timer if still in initial state
+  //   if (status.status === 'initial') {
+  //     setTimerFromPhase();
+  //   }
+  // }, [config]);
 
   return (
     <>

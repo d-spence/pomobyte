@@ -3,13 +3,13 @@ export const statusReducer = (state, action) => {
 
   switch (action.type) {
     case 'SET_STATUS':
-      return { ...state, status: action.status };
+      return { ...state, status: action.payload };
     case 'SET_PHASE':
-      return { ...state, phase: action.phase };
+      return { ...state, phase: action.payload };
     case 'SET_INTERVAL':
-      return { ...state, interval: action.interval };
+      return { ...state, interval: action.payload };
     case 'SET_PHASE_TIMEOUT_ID':
-      return { ...state, phaseTimeoutID: action.id };
+      return { ...state, phaseTimeoutID: action.payload };
     case 'CLEAR_PHASE_TIMEOUT_ID':
       return { ...state, phaseTimeoutID: null };
     default:
