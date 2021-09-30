@@ -1,1 +1,1 @@
-export const PHASE_TRANSITION_DELAY = 8000;
+export const PHASE_TRANSITION_DELAY = 5000;

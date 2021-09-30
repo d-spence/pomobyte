@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AppContext } from '../../contexts/AppContext';
 import { TimerContext } from '../../contexts/TimerContext';
 import Clock from './Clock';
+import PhaseButtons from '../button/PhaseButtons';
 import './Timer.css';
 
 const activeAnim = {
@@ -10,7 +11,7 @@ const activeAnim = {
     y: 0
   },
   animate: {
-    y: '100px',
+    y: '80px',
     scale: 1.2,
     opacity: 1,
     duration: 0.5
@@ -83,6 +84,7 @@ const Timer = () => {
       animate="animate"
       exit="exit"
     >
+      <PhaseButtons />
       <motion.div
         className="timer-state"
         variants={timerStateAnim}

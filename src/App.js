@@ -80,13 +80,6 @@ function App() {
     }
   }, [status.status, config]);
 
-  // useEffect(() => {
-  //   // Updates timer if still in initial state
-  //   if (status.status === 'initial') {
-  //     setTimerFromPhase();
-  //   }
-  // }, [config]);
-
   return (
     <>
       <div className="container flex col">
