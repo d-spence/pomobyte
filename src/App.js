@@ -1,8 +1,11 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import useInterval from './hooks/useInterval';
+import { useEffect, useContext } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import useInterval from './hooks/useInterval';
+import { AppContext } from './contexts/AppContext';
+import { TimerContext } from './contexts/TimerContext';
+import { PHASE_TRANSITION_DELAY } from './config/constants';
 
 import Nav from './features/navigation/Nav';
 import Timer from './features/timer/Timer';
@@ -11,115 +14,90 @@ import Modal from './features/modal/Modal';
 
 dayjs.extend(duration);
 
-let defaultConfig;
-if (localStorage.getItem('config')) {
-  defaultConfig = JSON.parse(localStorage.getItem('config'));
-  console.log('loading config from local storage');
-} else {
-  defaultConfig = {
-    pomoTime: 0.1,
-    shortBreak: 0.1,
-    longBreak: 0.1,
-    breakInterval: 2,
-  }
-}
-
 function App() {
-  const [config, setConfig] = useState(defaultConfig);
-  const [timer, setTimer] = useState(dayjs.duration(defaultConfig.pomoTime, 'minutes'));
-  const [timerState, setTimerState] = useState('initial'); // initial, active, paused, finished
-  const [phase, setPhase] = useState(1); // pomodoro=1, shortBreak=2, longBreak=3
-  const [currentInterval, setCurrentInterval] = useState(1);
-  const [modalOpen, setModalOpen] = useState(false);
-  
-  const closeModal = () => setModalOpen(false);
-  const openModal = () => setModalOpen(true);
+  const { config, modal } = useContext(AppContext);
+  const { timer, status, timerDispatch, statusDispatch } = useContext(TimerContext);
 
   const updateTimer = () => {
     if (timer.asSeconds() <= 0) {
-      console.log('timer finished')
-      setTimerState('finished');
+      statusDispatch({type: 'SET_STATUS', payload: 'finished'});
+      // handlePhaseTransition();
+      // setTimerFromPhase();
     } else {
-      let updatedTime = timer.subtract(1, 'seconds');
-      setTimer(updatedTime);
+      timerDispatch({type: 'UPDATE_TIMER'});
     }
   }
 
   const handlePhaseTransition = () => {
-    if (timerState !== 'finished') {
-      return;
-    }
-
-    if (phase === 1) {
-      if (currentInterval + 1 > config.breakInterval) {
-        console.log('Starting Phase 3 (Long Break)...');
-        setPhase(3);
+    if (status.phase === 1) {
+      if (status.interval + 1 > config.breakInterval) {
+        statusDispatch({type: 'SET_PHASE', payload: 3});
       } else {
-        console.log('Starting Phase 2 (Short Break)...');
-        setPhase(2);
+        statusDispatch({type: 'SET_PHASE', payload: 2});
       }
-    } else if (phase === 2) {
-      console.log('Starting Phase 1 (Pomodoro)...');
-      setPhase(1);
-      setCurrentInterval(currentInterval + 1);
-    } else if (phase === 3) {
-      setPhase(1);
-      setCurrentInterval(1);
+    } else if (status.phase === 2) {
+      statusDispatch({type: 'SET_PHASE', payload: 1});
+      statusDispatch({type: 'SET_INTERVAL', payload: status.interval + 1});
+    } else if (status.phase === 3) {
+      statusDispatch({type: 'SET_PHASE', payload: 1});
+      statusDispatch({type: 'SET_INTERVAL', payload: 1});
     }
   }
 
   const setTimerFromPhase = () => {
     let newTime;
-    switch (phase) {
+    switch (status.phase) {
       case 1: newTime = config.pomoTime; break;
       case 2: newTime = config.shortBreak; break;
       case 3: newTime = config.longBreak; break;
       default: newTime = config.pomoTime;
     }
 
-    setTimer(dayjs.duration(newTime, 'minutes'));
+    timerDispatch({type: 'SET_TIMER', payload: dayjs.duration(newTime, 'minutes')});
   }
 
   useInterval(() => {
-    if (timerState === 'active') updateTimer();
+    if (status.status === 'active') updateTimer();
   }, 1000);
 
   useEffect(() => {
-    handlePhaseTransition();
-  }, [timerState]);
-
-  useEffect(() => {
-    if (timerState === 'initial') {
+    if (status.status === 'initial') {
       setTimerFromPhase();
+
+      if (status.phaseTimeoutID) {
+        clearTimeout(status.phaseTimeoutID);
+        statusDispatch({type: 'CLEAR_PHASE_TIMEOUT_ID'});
+      }
+    } else if (status.status === 'finished') {
+      handlePhaseTransition();
+      
+      // Remember timeout id in state and cancel if status changes to initial
+      const timeoutID = setTimeout(() => {
+        statusDispatch({type: 'SET_STATUS', payload: 'initial'});
+      }, PHASE_TRANSITION_DELAY);
+
+      statusDispatch({type: 'SET_PHASE_TIMEOUT_ID', payload: timeoutID});
     }
-  }, [config]);
+  }, [status.status, config]);
+
+  // useEffect(() => {
+  //   // Updates timer if still in initial state
+  //   if (status.status === 'initial') {
+  //     setTimerFromPhase();
+  //   }
+  // }, [config]);
 
   return (
     <>
       <div className="container flex col">
-        <Nav openModal={openModal} />
-        <div>Timer State: {timerState} - Phase: {phase} - Current Interval: {currentInterval}/{config.breakInterval}</div>
-        <Timer
-          config={config}
-          timer={timer}
-          timerState={timerState}
-          phase={phase}
-        />
-        <TimerControls
-          config={config}
-          setConfig={setConfig}
-          setTimer={setTimer}
-          timerState={timerState}
-          setTimerState={setTimerState}
-          setTimerFromPhase={setTimerFromPhase}
-        />
+        <Nav />
+        <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div>
+        <Timer />
+        <TimerControls setTimerFromPhase={setTimerFromPhase} />
       </div>
 
-      <AnimatePresence
-        initial={false}
-        exitBeforeEnter={true}
-      >
-        {modalOpen && <Modal modalOpen={modalOpen} handleClose={closeModal} />}
+      <AnimatePresence initial={false} exitBeforeEnter={true}>
+        {modal.isOpen && <Modal />}
       </AnimatePresence>
     </>
   );

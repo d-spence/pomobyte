@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
+import { AppContext } from '../../contexts/AppContext';
+import { TimerContext } from '../../contexts/TimerContext';
 import Clock from './Clock';
 import './Timer.css';
 
@@ -66,7 +66,9 @@ const timerStateAnim = {
   }
 }
 
-const Timer = ({ config, timer, timerState, phase }) => {
+const Timer = () => {
+  const { config } = useContext(AppContext);
+  const { timer, status } = useContext(TimerContext);
   let formattedTime = timer.format('HH:mm:ss');
 
   useEffect(() => {
@@ -87,17 +89,17 @@ const Timer = ({ config, timer, timerState, phase }) => {
         initial="initial"
         animate="animate"
       >
-        {timerState === 'initial' && 'Pomobyte'}
-        {timerState === 'active' && 'Running'}
-        {timerState === 'paused' && 'Paused'}
-        {timerState === 'finished' && 'Done'}
+        {status.status === 'initial' && 'Pomobyte'}
+        {status.status === 'active' && 'Running'}
+        {status.status === 'paused' && 'Paused'}
+        {status.status === 'finished' && 'Done'}
       </motion.div>
 
       <AnimatePresence
         initial={true}
         exitBeforeEnter={true}
       >
-        {timerState === 'active' &&
+        {status.status === 'active' &&
           <motion.div 
             className="time green"
             variants={activeAnim}
@@ -108,7 +110,7 @@ const Timer = ({ config, timer, timerState, phase }) => {
           </motion.div>
         }
 
-        {timerState === 'paused' &&
+        {status.status === 'paused' &&
           <motion.div 
             className="time yellow"
             variants={pausedAnim}
@@ -119,7 +121,7 @@ const Timer = ({ config, timer, timerState, phase }) => {
           </motion.div>
         }
 
-        {timerState === 'finished' &&
+        {status.status === 'finished' &&
           <motion.div
             className="time red"
             variants={pausedAnim}
@@ -130,14 +132,14 @@ const Timer = ({ config, timer, timerState, phase }) => {
           </motion.div>
         }
 
-        {timerState === 'initial' &&
+        {status.status === 'initial' &&
           <motion.div className="time">
             {formattedTime}
           </motion.div>
         }
       </AnimatePresence>
       
-      <Clock config={config} timer={timer} timerState={timerState} phase={phase} />
+      <Clock />
     </motion.div>
   );
 }

@@ -1,4 +1,7 @@
+import { useContext } from 'react';
 import { motion } from 'framer-motion';
+import { AppContext } from '../../contexts/AppContext';
+import { TimerContext } from '../../contexts/TimerContext';
 import './Clock.css';
 
 const svgVariants = {
@@ -16,10 +19,13 @@ const svgVariants = {
 }
 
 // TODO: Move Clock component up to App
-const Clock = ({ config, timer, timerState, phase }) => {
+const Clock = () => {
+  const { config } = useContext(AppContext);
+  const { timer, status } = useContext(TimerContext);
+
   const getTotalTime = () => {
     let totalTime;
-    switch (phase) {
+    switch (status.phase) {
       case 1: totalTime = config.pomoTime; break;
       case 2: totalTime = config.shortBreak; break;
       case 3: totalTime = config.longBreak; break;
@@ -91,7 +97,7 @@ const Clock = ({ config, timer, timerState, phase }) => {
           r="198"
           variants={circleVariants}
           initial="initial"
-          animate={timerState === 'active' ? 'animate' : 'animatePaused'}
+          animate={status.status === 'active' ? 'animate' : 'animatePaused'}
         />
         <motion.circle
           className="svg-fg"
@@ -100,7 +106,7 @@ const Clock = ({ config, timer, timerState, phase }) => {
           r="198"
           variants={circleVariants}
           initial="initial"
-          animate={timerState === 'active' ? 'animateActive' : 'initial'}
+          animate={status.status === 'active' ? 'animateActive' : 'initial'}
         />
       </motion.svg>
     </motion.div>
