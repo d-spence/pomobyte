@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { AppContext } from '../../contexts/AppContext';
+import { TimerContext } from '../../contexts/TimerContext';
 
 import Button from '../button/Button';
 import StartButton from '../button/StartButton';
@@ -9,40 +10,21 @@ import './TimerControls.css'
 
 dayjs.extend(duration);
 
-const TimerControls = ({
-  // config,
-  // setConfig,
-  timer,
-  setTimer,
-  timerState,
-  setTimerState,
-  setTimerFromPhase,
-}) => {
+const TimerControls = ({ setTimerFromPhase }) => {
   const { config, configDispatch } = useContext(AppContext);
+  const { status, timerDispatch, statusDispatch } = useContext(TimerContext);
   const [pomoTime, setPomoTime] = useState(config.pomoTime);
   const [shortBreak, setShortBreak] = useState(config.shortBreak);
   const [longBreak, setLongBreak] = useState(config.longBreak);
 
-  const startTimer = () => {
-    if (timerState === 'finished') {
-      setTimerFromPhase();
-    }
-
-    !(timerState === 'active') && setTimerState('active');
-  }
-
-  const stopTimer = () => {
-    (timerState === 'active') && setTimerState('paused');
-  }
-
   const resetTimer = () => {
     setTimerFromPhase();
 
-    (timerState === 'active') ? setTimerState('active') : setTimerState('initial');
-  }
-
-  const addTimerMinutes = (minutes=1) => {
-    setTimer(timer.add(minutes, 'minutes'));
+    if (status.status === 'active') {
+      statusDispatch({type: 'SET_STATUS', status: 'active'});
+    } else {
+      statusDispatch({type: 'SET_STATUS', status: 'initial'});
+    }
   }
 
   const handleConfigChange = (func, value, min=0, max=999) => {
@@ -60,17 +42,14 @@ const TimerControls = ({
   useEffect(() => {
     const newConfig = { pomoTime, shortBreak, longBreak };
     configDispatch({type: 'UPDATE_CONFIG', payload: newConfig});
-    
-    // localStorage.setItem('config', JSON.stringify(newConfig));
-    // console.log('saving config to local storage');
   }, [pomoTime, shortBreak, longBreak]);
 
   return (
     <div className="controls">
-      <StartButton startTimer={startTimer} stopTimer={stopTimer} timerState={timerState} />
+      <StartButton />
 
       <div className="buttons">
-        <Button label="+1 Minute" onClick={() => addTimerMinutes(1)} />
+        <Button label="+1 Minute" onClick={() => timerDispatch({type: 'ADD_MINUTES', minutes: 1})} />
         <Button label="Reset" onClick={resetTimer} />
       </div>
 

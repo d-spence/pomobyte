@@ -10,7 +10,7 @@ const Nav = () => {
   return (
     <nav className="nav">
       <Logo />
-      <Button label="About" onClick={() => modalDispatch({type: 'MODAL_OPEN'})} type="navExpand" />
+      <Button label="About" onClick={() => modalDispatch({type: 'OPEN_MODAL'})} type="navExpand" />
     </nav>
   );
 }

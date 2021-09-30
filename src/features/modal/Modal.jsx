@@ -39,7 +39,7 @@ const Modal = () => {
         exit="exit"
       >
         {/* <p>{text}</p> */}
-        <Button label="Close" onClick={() => modalDispatch({type: 'MODAL_CLOSE'})} />
+        <Button label="Close" onClick={() => modalDispatch({type: 'CLOSE_MODAL'})} />
       </motion.div>
     </Backdrop>
   );

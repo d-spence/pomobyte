@@ -9,7 +9,7 @@ const Backdrop = ({ children }) => {
   return (
     <motion.div
       className="backdrop"
-      onClick={() => modalDispatch({type: 'MODAL_CLOSE'})}
+      onClick={() => modalDispatch({type: 'CLOSE_MODAL'})}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

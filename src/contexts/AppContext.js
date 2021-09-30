@@ -17,7 +17,7 @@ const AppContextProvider = (props) => {
   }, [config]);
 
   return (
-    <AppContext.Provider value={{ config, modal, configDispatch, modalDispatch }}>
+    <AppContext.Provider value={{ config, configDispatch, modal, modalDispatch }}>
       {props.children}
     </AppContext.Provider>
   );
