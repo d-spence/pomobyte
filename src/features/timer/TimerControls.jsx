@@ -16,6 +16,7 @@ const TimerControls = ({ setTimerFromPhase }) => {
   const [pomoTime, setPomoTime] = useState(config.pomoTime);
   const [shortBreak, setShortBreak] = useState(config.shortBreak);
   const [longBreak, setLongBreak] = useState(config.longBreak);
+  const [breakInterval, setBreakInterval] = useState(config.breakInterval);
 
   const resetTimer = () => {
     setTimerFromPhase();
@@ -40,9 +41,9 @@ const TimerControls = ({ setTimerFromPhase }) => {
   }
 
   useEffect(() => {
-    const newConfig = { pomoTime, shortBreak, longBreak };
+    const newConfig = { pomoTime, shortBreak, longBreak, breakInterval };
     configDispatch({type: 'UPDATE_CONFIG', payload: newConfig});
-  }, [pomoTime, shortBreak, longBreak]);
+  }, [pomoTime, shortBreak, longBreak, breakInterval]);
 
   return (
     <div className="controls">
@@ -53,6 +54,7 @@ const TimerControls = ({ setTimerFromPhase }) => {
         <Button label="Reset" onClick={resetTimer} />
       </div>
 
+      <h4>Minutes</h4>
       <div className="config flex">
         <div className="flex col">
           <label>Pomodoro</label>
@@ -80,9 +82,18 @@ const TimerControls = ({ setTimerFromPhase }) => {
             onClick={(e) => e.target.select()}
           />
         </div>
+
       </div>
 
-      <div>Minutes</div>
+      <div className="config-other">
+        <label>Intervals Before Long Break</label>
+        <input
+          value={breakInterval}
+          onChange={(e) => handleConfigChange(setBreakInterval, e.target.value)}
+          onClick={(e) => e.target.select()}
+        />
+      </div>
+      
     </div>
   );
 }

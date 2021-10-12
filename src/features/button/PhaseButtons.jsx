@@ -34,7 +34,7 @@ const PhaseButtons = ({ setTimerFromPhase }) => {
     if (status.phase !== phase) {
       statusDispatch({type: 'SET_PHASE', payload: phase});
       statusDispatch({type: 'SET_STATUS', payload: 'initial'});
-      statusDispatch({type: 'SET_INTERVAL', payload: 1});
+      // statusDispatch({type: 'SET_INTERVAL', payload: 1});
       setTimerFromPhase(phase);
     }
   }

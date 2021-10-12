@@ -4,15 +4,17 @@
   align-items: center;
   position: relative;
   height: 200px;
-  width: 600px;
+  width: 500px;
   border: 1px solid var(--light);
+  border-radius: 8px;
   margin: 20px;
+  padding-top: 50px;
 }
 
-.controls .buttons,
-.controls .config {
+/* .controls .buttons, */
+/* .controls .config {
   flex: 1;
-}
+} */
 
 .controls .buttons {
   position: absolute;
@@ -24,12 +26,16 @@
   border: 1px solid var(--light);
   border-radius: 5px;
   margin: 0 5px;
-  padding: 5px 10px;
+  padding: 5px;
   font-size: 1rem;
 }
 
+.controls h4 {
+  margin: 0 0 5px 0;
+}
+
 .controls .config input {
-  font-size: 25px;
+  font-size: 22px;
   text-align: center;
   height: 50px;
   width: 50px;
@@ -38,4 +44,20 @@
 
 .controls .config label {
   font-size: 0.9rem;
+}
+
+.controls .config-other {
+
+}
+
+.controls .config-other input {
+  font-size: 18px;
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  margin: 5px 20px;
+}
+
+.controls .config-other label {
+  font-size: 0.8rem;
 }
