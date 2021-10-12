@@ -6,61 +6,24 @@ import { PHASE_TRANSITION_DELAY } from '../../config/constants';
 
 const buttonVariants = {
   initial: {
-    scale: 0,
     opacity: 0,
-    backgroundColor: 'var(--light)',
   },
   animate: {
-    x: 0,
-    y: 0,
-    scale: 1,
     opacity: 0.5,
-    backgroundColor: 'var(--light)',
+    border: 'none',
     transition: {
       duration: 0.5,
     }
   },
-  animatePomodoro: {
-    x: 140,
-    y: 40,
-    scale: 1.2,
-    opacity: 0.8,
-    backgroundColor: 'var(--green)',
+  animateActive: {
+    opacity: 0.9,
+    border: '1px solid var(--dark)',
     transition: {
-      backgroundColor: {
-        duration: 2,
-      }
-    }
-  },
-  animateShortBreak: {
-    x: 0,
-    y: 40,
-    scale: 1.2,
-    opacity: 0.8,
-    backgroundColor: 'var(--yellow)',
-    transition: {
-      backgroundColor: {
-        duration: 2,
-      }
-    }
-  },
-  animateLongBreak: {
-    x: -140,
-    y: 40,
-    scale: 1.2,
-    opacity: 0.8,
-    backgroundColor: 'var(--red)',
-    transition: {
-      backgroundColor: {
-        duration: 2,
-      }
+      duration: 1,
     }
   },
   hover: {
     opacity: 1,
-  },
-  exit: {
-
   }
 }
 
@@ -72,27 +35,30 @@ const PhaseButtons = () => {
       <PhaseButton as={motion.button}
         variants={buttonVariants}
         initial="initial"
-        animate={(status.phase === 1) ? 'animatePomodoro' : 'animate'}
+        animate={(status.phase === 1) ? 'animateActive' : 'animate'}
         exit="exit"
         whileHover="hover"
+        bgColor="green"
       >
         Pomodoro
       </PhaseButton>
       <PhaseButton as={motion.button}
         variants={buttonVariants}
         initial="initial"
-        animate={(status.phase === 2) ? 'animateShortBreak' : 'animate'}
+        animate={(status.phase === 2) ? 'animateActive' : 'animate'}
         exit="exit"
         whileHover="hover"
+        bgColor="yellow"
       >
         Short Break
       </PhaseButton>
       <PhaseButton as={motion.button}
         variants={buttonVariants}
         initial="initial"
-        animate={(status.phase === 3) ? 'animateLongBreak' : 'animate'}
+        animate={(status.phase === 3) ? 'animateActive' : 'animate'}
         exit="exit"
         whileHover="hover"
+        bgColor="red"
       >
         Long Break
       </PhaseButton>

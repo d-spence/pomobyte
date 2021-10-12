@@ -4,21 +4,22 @@ export const StyledPhaseButtons = styled.div`
   display: flex;
   justify-content: space-between;
   position: absolute;
-  top: 20px;
-  height: 30px;
-  width: 400px;
+  top: 0;
+  /* height: 30px; */
+  width: 420px;
+  background-color: var(--light);
+  border: 2px solid var(--light);
+  border-radius: 4px;
 `;
 
 export const PhaseButton = styled.button`
-  background-color: ${props => props.bgColor || 'var(--light)'};
+  background-color: ${props => `var(--${props.bgColor})` || 'var(--light)'};
   color: var(--dark);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 1rem;
-  width: 120px;
-  border: none;
-  border-radius: 5px;
-  border-style: none;
-  padding: 4px 12px;
+  font-size: 1.1rem;
+  width: 140px;
+  border-radius: 4px;
+  padding: 4px 0;
   opacity: 0.8;
   cursor: pointer;
 `;

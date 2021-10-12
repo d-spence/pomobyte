@@ -84,7 +84,7 @@ function App() {
     <>
       <div className="container flex col">
         <Nav />
-        <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div>
+        {/* <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div> */}
         <Timer />
         <TimerControls setTimerFromPhase={setTimerFromPhase} />
       </div>
