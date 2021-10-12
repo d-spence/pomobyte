@@ -27,12 +27,22 @@ const buttonVariants = {
   }
 }
 
-const PhaseButtons = () => {
-  const { status } = useContext(TimerContext);
+const PhaseButtons = ({ setTimerFromPhase }) => {
+  const { status, statusDispatch, timerDispatch } = useContext(TimerContext);
+
+  const handlePhaseBtnClick = (phase) => {
+    if (status.phase !== phase) {
+      statusDispatch({type: 'SET_PHASE', payload: phase});
+      statusDispatch({type: 'SET_STATUS', payload: 'initial'});
+      statusDispatch({type: 'SET_INTERVAL', payload: 1});
+      setTimerFromPhase(phase);
+    }
+  }
 
   return (
     <StyledPhaseButtons as={motion.div}>
       <PhaseButton as={motion.button}
+        onClick={() => handlePhaseBtnClick(1)}
         variants={buttonVariants}
         initial="initial"
         animate={(status.phase === 1) ? 'animateActive' : 'animate'}
@@ -43,6 +53,7 @@ const PhaseButtons = () => {
         Pomodoro
       </PhaseButton>
       <PhaseButton as={motion.button}
+        onClick={() => handlePhaseBtnClick(2)}
         variants={buttonVariants}
         initial="initial"
         animate={(status.phase === 2) ? 'animateActive' : 'animate'}
@@ -53,6 +64,7 @@ const PhaseButtons = () => {
         Short Break
       </PhaseButton>
       <PhaseButton as={motion.button}
+        onClick={() => handlePhaseBtnClick(3)}
         variants={buttonVariants}
         initial="initial"
         animate={(status.phase === 3) ? 'animateActive' : 'animate'}

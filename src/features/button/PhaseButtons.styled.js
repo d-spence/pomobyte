@@ -5,7 +5,7 @@ export const StyledPhaseButtons = styled.div`
   justify-content: space-between;
   position: absolute;
   top: 0;
-  /* height: 30px; */
+  height: 40px;
   width: 420px;
   background-color: var(--light);
   border: 2px solid var(--light);

@@ -44,9 +44,9 @@ function App() {
     }
   }
 
-  const setTimerFromPhase = () => {
+  const setTimerFromPhase = (phase=null) => {
     let newTime;
-    switch (status.phase) {
+    switch (phase || status.phase) {
       case 1: newTime = config.pomoTime; break;
       case 2: newTime = config.shortBreak; break;
       case 3: newTime = config.longBreak; break;
@@ -84,9 +84,9 @@ function App() {
     <>
       <div className="container flex col">
         <Nav />
-        {/* <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div> */}
-        <Timer />
+        <Timer setTimerFromPhase={setTimerFromPhase} />
         <TimerControls setTimerFromPhase={setTimerFromPhase} />
+        <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div>
       </div>
 
       <AnimatePresence initial={false} exitBeforeEnter={true}>

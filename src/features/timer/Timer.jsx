@@ -67,7 +67,7 @@ const timerStateAnim = {
   }
 }
 
-const Timer = () => {
+const Timer = ({ setTimerFromPhase }) => {
   const { config } = useContext(AppContext);
   const { timer, status } = useContext(TimerContext);
   let formattedTime = timer.format('HH:mm:ss');
@@ -84,7 +84,7 @@ const Timer = () => {
       animate="animate"
       exit="exit"
     >
-      <PhaseButtons />
+      <PhaseButtons setTimerFromPhase={setTimerFromPhase} />
       <motion.div
         className="timer-state"
         variants={timerStateAnim}
