@@ -8,7 +8,9 @@ import { TimerContext } from './contexts/TimerContext';
 import { PHASE_TRANSITION_DELAY } from './config/constants';
 
 import Nav from './features/navigation/Nav';
+import PhaseButtons from './features/button/PhaseButtons';
 import Timer from './features/timer/Timer';
+import Clock from './features/timer/Clock';
 import TimerControls from './features/timer/TimerControls';
 import Modal from './features/modal/Modal';
 
@@ -82,9 +84,11 @@ function App() {
 
   return (
     <>
-      <div className="container flex col">
+      <div className="app-container">
         <Nav />
+        <PhaseButtons setTimerFromPhase={setTimerFromPhase} />
         <Timer setTimerFromPhase={setTimerFromPhase} />
+        <Clock />
         <TimerControls setTimerFromPhase={setTimerFromPhase} />
         <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div>
       </div>

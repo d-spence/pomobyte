@@ -1,5 +1,6 @@
 .clock {
   position: absolute;
+  top: 120px;
   height: 380px;
   width: 380px;
   z-index: -1;

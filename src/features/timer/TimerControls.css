@@ -5,16 +5,12 @@
   position: relative;
   height: 200px;
   width: 500px;
+  background-color: var(--dark);
   border: 1px solid var(--light);
   border-radius: 8px;
   margin: 20px;
   padding-top: 50px;
 }
-
-/* .controls .buttons, */
-/* .controls .config {
-  flex: 1;
-} */
 
 .controls .buttons {
   position: absolute;
@@ -46,9 +42,9 @@
   font-size: 0.9rem;
 }
 
-.controls .config-other {
+/* .controls .config-other {
 
-}
+} */
 
 .controls .config-other input {
   font-size: 18px;

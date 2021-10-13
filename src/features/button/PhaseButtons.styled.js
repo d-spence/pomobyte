@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledPhaseButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   height: 40px;
   width: 420px;

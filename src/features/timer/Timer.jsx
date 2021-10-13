@@ -2,8 +2,6 @@ import { useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppContext } from '../../contexts/AppContext';
 import { TimerContext } from '../../contexts/TimerContext';
-import Clock from './Clock';
-import PhaseButtons from '../button/PhaseButtons';
 import './Timer.css';
 
 const activeAnim = {
@@ -84,7 +82,6 @@ const Timer = ({ setTimerFromPhase }) => {
       animate="animate"
       exit="exit"
     >
-      <PhaseButtons setTimerFromPhase={setTimerFromPhase} />
       <motion.div
         className="timer-state"
         variants={timerStateAnim}
@@ -140,8 +137,6 @@ const Timer = ({ setTimerFromPhase }) => {
           </motion.div>
         }
       </AnimatePresence>
-      
-      <Clock />
     </motion.div>
   );
 }
