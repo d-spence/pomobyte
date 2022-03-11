@@ -4,9 +4,9 @@ import duration from 'dayjs/plugin/duration';
 dayjs.extend(duration);
 
 export const defaultConfig = {
-  pomoTime: 0.1, // minutes
-  shortBreak: 0.05,
-  longBreak: 0.07,
+  pomoTime: 25, // minutes
+  shortBreak: 5,
+  longBreak: 15,
   breakInterval: 2,
 }
 

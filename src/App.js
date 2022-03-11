@@ -90,7 +90,7 @@ function App() {
         <Timer setTimerFromPhase={setTimerFromPhase} />
         <Clock />
         <TimerControls setTimerFromPhase={setTimerFromPhase} />
-        <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div>
+        {/* <div>Status: {status.status} | Phase: {status.phase} | Interval: {status.interval}/{config.breakInterval}</div> */}
       </div>
 
       <AnimatePresence initial={false} exitBeforeEnter={true}>
