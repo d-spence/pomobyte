@@ -38,7 +38,11 @@ const Modal = () => {
         animate="visible"
         exit="exit"
       >
-        {/* <p>{text}</p> */}
+        <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. It uses a timer to break work into intervals, typically 25 minutes in length, separated by short breaks. Longer breaks can be taken after several pomodoro intervals.</p>
+        <p>By breaking a task up into short work periods interspersed by breaks, a person's assimilation of knowledge and understanding may be improved.</p>
+        <p>For more info on the technique, see the full <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank" rel="noreferrer">Wikipedia article.</a></p>
+        <p>See the project source code on <a href="https://github.com/d-spence/pomobyte" target="_blank" rel="noreferrer">GitHub.</a></p>
+        <p>Pomobyte created by <a href="https://danspencer.dev/" target="_blank" rel="noreferrer">Dan Spencer.</a></p>
         <Button label="Close" onClick={() => modalDispatch({type: 'CLOSE_MODAL'})} />
       </motion.div>
     </Backdrop>
